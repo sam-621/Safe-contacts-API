@@ -1,0 +1,45 @@
+{
+  "name": "api-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/app.ts --exact ts-node",
+    "build": "tsc",
+    "production": "node dist/App.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rogeliosamuel621/Safe-contacts-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rogeliosamuel621/Safe-contacts-API/issues"
+  },
+  "homepage": "https://github.com/rogeliosamuel621/Safe-contacts-API#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/cors": "^2.8.7",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.7",
+    "@types/helmet": "0.0.47",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/morgan": "^1.9.1",
+    "@types/mysql2": "github:types/mysql2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  }
+}

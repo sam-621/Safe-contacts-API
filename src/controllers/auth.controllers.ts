@@ -19,7 +19,7 @@ export async function registerController(req: Request, res: Response): Promise<R
     }
 
     try {
-        const { name, lastName, email, username, password } = req.body;
+        const { name, lastName, email, username, password } = req.body as IregisterUser;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 

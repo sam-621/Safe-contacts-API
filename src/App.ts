@@ -1,18 +1,35 @@
 import express, { Application } from 'express';
 import morgan from 'morgan';
-import { port } from './config';
 import authRoutes from './routes/auth.routes';
 import userRoutes from './routes/user.routes';
 
-const app: Application = express();
+export class Server {
 
-//MIDDLEWARES
-app.use(express.json());
-app.use(morgan('dev'));
+    private App: Application
 
-//ROUTES
-app.use('/safecontacts/api/', authRoutes);
-app.use('/safecontacts/api/', userRoutes);
+    constructor(private port: string | number) {
+        this.App = express();
+        this.Settings();
+        this.Middlewares();
+        this.Routes();
+    }
 
-//SERVER
-app.listen(port, () => console.log('working'));
+    Settings() {
+        this.App.set('port', this.port)
+    }
+
+    Middlewares() {
+        this.App.use(express.json());
+        this.App.use(morgan('dev'));
+    }
+
+    Routes() {
+        this.App.use('/safecontacts/api/', authRoutes);
+        this.App.use('/safecontacts/api/', userRoutes);
+    }
+
+    StartServer() {
+        this.App.listen(this.App.get('port'));
+        console.log('Everything OK');
+    }
+}

@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.ts --exact ts-node",
+    "dev": "nodemon src/index.ts --exact ts-node",
     "build": "tsc",
-    "production": "node dist/App.js"
+    "production": "node dist/index.js"
   },
   "repository": {
     "type": "git",

@@ -3,8 +3,6 @@ export interface IPayload {
     rol: string,
 }
 
-export interface IDecoded {
-    id: string,
-    rol: string,
+export interface IDecoded extends IPayload {
     iat: string
 }

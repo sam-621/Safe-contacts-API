@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';    
 import { validationResult } from 'express-validator';
-import pool from '../database/connection';
-import bcrypt from 'bcryptjs';
-import { IregisterUser, IloginUser } from '../models/users.models';
-import { RowDataPacket } from 'mysql2';
-import { IPayload } from '../models/token.models';
 import jwt from 'jsonwebtoken';
+import { RowDataPacket } from 'mysql2';
+import bcrypt from 'bcryptjs';
+import pool from '../database/connection';
+import { IUser } from '../models/users.models';
+import { IPayload } from '../models/token.models';
 import { secret_token } from '../config';
 
 export async function registerController(req: Request, res: Response): Promise<Response> {
@@ -19,11 +19,11 @@ export async function registerController(req: Request, res: Response): Promise<R
     }
 
     try {
-        const { name, lastName, email, username, password } = req.body as IregisterUser;
+        const { name, lastName, email, username, password } = req.body as IUser;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser: IregisterUser = {
+        const newUser: IUser = {
             name,
             lastName,
             email,
@@ -55,7 +55,7 @@ export async function loginController(req: Request, res: Response): Promise<Resp
         });
     }
 
-    const { email, password }: IloginUser = req.body;
+    const { email, password }: IUser = req.body;
     try {
         const [user] = await pool.query<RowDataPacket[]>("SELECT * FROM Users WHERE email = ?", [email]);
 

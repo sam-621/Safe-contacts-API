@@ -1,12 +1,10 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
+import { IRequest } from '../models/middlewares.models';
 import pool from '../database/connection';
-import { verify } from 'jsonwebtoken';
-import { secret_token } from '../config';
 import { IContacts } from '../models/contacts.models';
-import { IDecoded } from '../models/token.models';
 import { validationResult } from 'express-validator';
 
-export async function addContactsController(req: Request, res: Response): Promise<Response> {
+export async function addContactsController(req: IRequest, res: Response): Promise<Response> {
 
     const errorDataSchema = validationResult(req); 
     if(!errorDataSchema.isEmpty()) {
@@ -15,11 +13,8 @@ export async function addContactsController(req: Request, res: Response): Promis
             message: 'Wrong data schema'
         });
     }
-
-    const token = req.headers.authorization as string;
-
+    
     try {
-        const decoded = verify(token, secret_token) as IDecoded;
 
         const { name, lastName, tel, email }: IContacts = req.body;
         const newContact: IContacts = {
@@ -27,7 +22,7 @@ export async function addContactsController(req: Request, res: Response): Promis
             lastName,
             tel,
             email,
-            user_id: decoded.id
+            user_id: req.user?.id
         }
 
         await pool.query("INSERT INTO Contacts SET ?", [newContact]);

@@ -1,12 +1,9 @@
-export interface IregisterUser {
-    name: string,
-    lastName: string,
+export interface IUser{
+    id?: string,
+    name?: string,
+    lastName?: string,
+    username?: string,
     email: string,
-    username: string,
-    password: string
-}
-
-export interface IloginUser {
-    email: string,
-    password: string
+    password: string,
+    rol?: string
 }

@@ -4,7 +4,8 @@ import {
     addContactsController, 
     getContactsController,
     getContactController,
-    editContactController
+    editContactController,
+    deleteContact
 } from '../controllers/user.controllers';
 import { ContactValidator } from '../validators/contacts.validators';
 import authMiddleware from '../middlewares/auth.middleware';
@@ -28,5 +29,9 @@ router.route('/contacts/:contactID')
         ContactValidator,
         authMiddleware,
         editContactController
+    )
+    .delete(
+        authMiddleware,
+        deleteContact
     )
 export default router;

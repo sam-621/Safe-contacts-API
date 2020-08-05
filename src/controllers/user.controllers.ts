@@ -111,3 +111,21 @@ export async function editContactController(req: IRequest, res: Response): Promi
         return res.json(error)
     }
 }
+
+export async function deleteContact(req: IRequest, res: Response): Promise<Response> {
+
+    const { contactID } = req.params;
+    const userID = req.user?.id;
+
+    try {
+        await pool.query("DELETE FROM Contacts WHERE id = ? AND user_id = ?", [contactID, userID]);
+
+        return res.json({
+            error: false,
+            message: 'you have deleted a contact'
+        });
+    } catch (error) {
+        return res.json(error);   
+    }
+
+}

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-const router = Router();
 import { registerController, loginController } from '../controllers/auth.controllers';
 import { registerValidator, loginValidator } from '../validators/user.validator';
+const router = Router();
 
 router.post(
     '/register',

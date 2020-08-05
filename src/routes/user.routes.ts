@@ -1,5 +1,4 @@
 import { Router } from 'express';
-const router = Router();
 import {
     addContactsController, 
     getContactsController,
@@ -9,6 +8,7 @@ import {
 } from '../controllers/user.controllers';
 import { ContactValidator } from '../validators/contacts.validators';
 import authMiddleware from '../middlewares/auth.middleware';
+const router = Router();
 
 router.post(
     '/add',

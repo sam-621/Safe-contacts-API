@@ -4,7 +4,6 @@ import pool from '../database/connection';
 import { IContacts } from '../models/contacts.models';
 import { validationResult } from 'express-validator';
 import { RowDataPacket } from 'mysql2';
-import { IUser } from '../models/users.models';
 
 export async function addContactsController(req: IRequest, res: Response): Promise<Response> {
 
@@ -56,7 +55,7 @@ export async function getContactsController(req: IRequest, res: Response): Promi
         });
         
     } catch (error) {
-        return res.json(error)
+        return res.json(error);
     }
 }
 
@@ -108,7 +107,7 @@ export async function editContactController(req: IRequest, res: Response): Promi
         });
 
     } catch (error) {
-        return res.json(error)
+        return res.json(error);
     }
 }
 

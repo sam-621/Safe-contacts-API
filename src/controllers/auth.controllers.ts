@@ -19,7 +19,7 @@ export async function registerController(req: Request, res: Response): Promise<R
     }
 
     try {
-        const { name, lastName, email, username, password } = req.body as IUser;
+        const { name, lastName, email, username, password }: IUser = req.body;
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -87,6 +87,6 @@ export async function loginController(req: Request, res: Response): Promise<Resp
         });
 
     } catch (error) {
-        return res.json(error)
+        return res.json(error);
     }
 }

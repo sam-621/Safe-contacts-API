@@ -7,7 +7,7 @@ export interface IRequest extends Request{
     }
 }
 
-export type Handler = (
+export type Middleware = (
     req: IRequest,
     res:  Response,
     next: NextFunction

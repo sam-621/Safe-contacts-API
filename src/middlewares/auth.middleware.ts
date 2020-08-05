@@ -3,9 +3,10 @@ import { secret_token } from '../config';
 import { IDecoded } from '../models/token.models';
 import { RowDataPacket } from 'mysql2';
 import pool from '../database/connection'
-import { Handler } from '../models/middlewares.models';
+import { Middleware } from '../models/middlewares.models';
 
-const authMiddleware: Handler = async (req, res, next) => {
+const authMiddleware: Middleware = async (req, res, next) => {
+
     const token = req.headers.authorization as string;
 
     if(!token) {
@@ -30,7 +31,7 @@ const authMiddleware: Handler = async (req, res, next) => {
         req.user = decoded;
         next();
     } catch (error) {
-        return res.json(error)
+        return res.json(error);
     }
 }
 

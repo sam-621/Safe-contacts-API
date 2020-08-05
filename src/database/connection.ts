@@ -6,7 +6,7 @@ const pool = createPool({
     password: db_password,
     host: db_host,
     database: db_name,
-    connectionLimit: 10
+    connectionLimit: 5
 });
 
 export default pool;

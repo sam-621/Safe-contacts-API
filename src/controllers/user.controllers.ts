@@ -4,6 +4,7 @@ import pool from '../database/connection';
 import { IContacts } from '../models/contacts.models';
 import { validationResult } from 'express-validator';
 import { RowDataPacket } from 'mysql2';
+import { IUser } from '../models/users.models';
 
 export async function addContactsController(req: IRequest, res: Response): Promise<Response> {
 
@@ -80,5 +81,33 @@ export async function getContactController(req: IRequest, res: Response): Promis
 
     } catch (error) {
         return res.json(error);
+    }
+}
+
+export async function editContactController(req: IRequest, res: Response): Promise<Response> {
+
+    const errorDataSchema = validationResult(req);
+
+    if(!errorDataSchema.isEmpty()) {
+        return res.json({
+            error: errorDataSchema.array(),
+            message: 'wrong data schema'
+        });
+    }
+
+    const userDataUpdated: IContacts = req.body;
+    const { contactID } = req.params;
+    const userID = req.user?.id;
+
+    try {
+        await pool.query("UPDATE Contacts SET ? WHERE id = ? AND user_id = ?", [userDataUpdated, contactID, userID]);
+
+        return res.json({
+            error: false,
+            message: 'You have updated your contact successfully'
+        });
+
+    } catch (error) {
+        return res.json(error)
     }
 }

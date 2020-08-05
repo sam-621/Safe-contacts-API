@@ -3,14 +3,15 @@ const router = Router();
 import {
     addContactsController, 
     getContactsController,
-    getContactController
+    getContactController,
+    editContactController
 } from '../controllers/user.controllers';
-import { AddContactValidator } from '../validators/contacts.validators';
+import { ContactValidator } from '../validators/contacts.validators';
 import authMiddleware from '../middlewares/auth.middleware';
 
 router.post(
     '/add',
-    AddContactValidator,
+    ContactValidator,
     authMiddleware,
     addContactsController
 )
@@ -21,8 +22,11 @@ router.get(
     getContactsController
 )
 
-router.get(
-    '/contacts/:contactID',
-    getContactController
-)
+router.route('/contacts/:contactID')
+    .get(getContactController)
+    .put(
+        ContactValidator,
+        authMiddleware,
+        editContactController
+    )
 export default router;

@@ -39,22 +39,46 @@ export async function addContactsController(req: IRequest, res: Response): Promi
 }
 
 export async function getContactsController(req: IRequest, res: Response): Promise<Response> {
-
-    const errorDataSchema = validationResult(req); 
-    if(!errorDataSchema.isEmpty()) {
-        return res.json({
-            error: errorDataSchema.array(),
-            message: 'Wrong data schema'
-        });
-    }
     
     try {
         const [contacts] = await pool.query<RowDataPacket[]>("SELECT * FROM Contacts WHERE user_id = ?", [req.user?.id]);
 
+        if(!contacts.length) {
+            throw{
+                error: true,
+                message: 'no contacts yet'
+            }
+        }
+
         return res.json({
             data: contacts
         });
+        
     } catch (error) {
         return res.json(error)
+    }
+}
+
+export async function getContactController(req: IRequest, res: Response): Promise<Response> {
+
+    try {
+        const { contactID } = req.params;
+
+        const [contact] = await pool.query<RowDataPacket[]>("SELECT * FROM Contacts WHERE id = ?", [contactID]);
+
+        if(!contact.length) {
+            throw {
+                error: true,
+                message: 'No contact with that id'
+            }
+        }
+
+        return res.json({
+            error: false,
+            data: contact
+        });
+
+    } catch (error) {
+        return res.json(error);
     }
 }

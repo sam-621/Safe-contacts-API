@@ -1,6 +1,10 @@
 import { Router } from 'express';
 const router = Router();
-import { addContactsController, getContactsController } from '../controllers/user.controllers';
+import {
+    addContactsController, 
+    getContactsController,
+    getContactController
+} from '../controllers/user.controllers';
 import { AddContactValidator } from '../validators/contacts.validators';
 import authMiddleware from '../middlewares/auth.middleware';
 
@@ -17,4 +21,8 @@ router.get(
     getContactsController
 )
 
+router.get(
+    '/contacts/:contactID',
+    getContactController
+)
 export default router;
